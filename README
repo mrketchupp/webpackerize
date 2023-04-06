@@ -1,0 +1,44 @@
+# Webpackerize
+Webpackerize es un paquete NPM que prepara todo lo necesario para trabajar con Webpack en tu proyecto, permitiéndote concentrarte en escribir código de calidad.
+
+Este paquete incluye las dependencias necesarias para trabajar con Webpack, Babel, Tailwind CSS y PostCSS, lo que te permitirá aprovechar todas sus ventajas de manera inmediata.
+
+Además, gracias a los archivos de configuración incluidos, este paquete te permitirá empezar a trabajar con Webpack en cuestión de segundos, sin necesidad de configurar nada tú mismo.
+
+En resumen, si estás buscando una manera sencilla y rápida de empezar a trabajar con Webpack en tu proyecto, Webpackerize es la herramienta ideal para ti.
+
+## Uso
+Para usar Webpackerize, simplemente ejecuta el siguiente comando en la raíz de tu proyecto:
+
+
+```bash
+npx webpackerize setup
+```
+Webpackerize generará los archivos y carpetas necesarios para configurar Webpack en tu proyecto. Luego, puedes modificar la configuración de Webpack en el archivo webpack.config.js.
+
+## Dependencias
+
+| Tecnología         | Descripción                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| Babel              | Transpila el código JavaScript a una versión compatible con una gran cantidad de navegadores |
+| TailwindCSS        | Un framework de diseño CSS que te permite crear diseños personalizados con poco esfuerzo |
+| Webpack            | Empaqueta y optimiza el código JavaScript para su uso en un navegador |
+| HtmlWebpackPlugin | Genera un archivo HTML para incluir automáticamente todos los paquetes compilados de JavaScript |
+| css-loader         | Carga archivos CSS en su aplicación                                                      |
+| postcss-loader     | Carga archivos CSS y los transforma con PostCSS, que permite aplicar transformaciones en el código CSS |
+| autoprefixer      | Plugin de PostCSS que añade prefijos CSS automáticamente para garantizar la compatibilidad entre navegadores |
+| terser-webpack-plugin | Optimizador de JavaScript que utiliza el motor de compresión Terser |
+| css-minimizer-webpack-plugin | Plugin que minimiza el CSS generado por Webpack |
+
+
+
+## Contribuir
+Si quieres contribuir al proyecto, puedes seguir estos pasos:
+
+1. Realiza un fork del repositorio.
+2. Crea una nueva rama para tu función o corrección de errores.
+3. Realiza los cambios necesarios y haz commit de los mismos.
+4. Haz un pull request.
+
+## Licencia
+Webpackerize está disponible bajo la Licencia MIT. Ver el archivo LICENSE para más información.
