@@ -3,7 +3,7 @@ const path = require('path');
 
 const webpackerize = ()=> {
   try {
-    const configFilesPath = path.join(__dirname, 'src/configFiles'); // Ruta de la carpeta con los archivos de configuración
+    const configFilesPath = path.join(__dirname, 'configFiles'); // Ruta de la carpeta con los archivos de configuración
     const configPath = path.join(__dirname, '/'); // Ruta de la carpeta para guardar los archivos de configuración
 
     fs.readdirSync(configFilesPath).forEach((fileName) => {

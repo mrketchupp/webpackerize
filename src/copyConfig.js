@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const scriptsPath = path.join(__dirname, 'src/webpackScipts/scripts.json');
+const scriptsPath = path.join(__dirname, 'webpackScipts/scripts.json');
 const packagePath = path.join(__dirname, '/package.json');
 
 const scriptsContent = fs.readFileSync(scriptsPath, 'utf8');
