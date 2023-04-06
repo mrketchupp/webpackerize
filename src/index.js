@@ -5,7 +5,7 @@ const { exec } = require('child_process');
 const webpackerize = async () => {
   try {
     const configFilesPath = path.join(__dirname, 'configFiles');
-    const configPath = path.join(__dirname, '/');
+    const configPath = process.cwd();
 
     fs.readdirSync(configFilesPath).forEach((fileName) => {
       const filePath = path.join(configFilesPath, fileName);
@@ -23,36 +23,29 @@ const webpackerize = async () => {
       console.log(`Directory ${directory} created successfully.`);
     });
 
+    // Lista de archivos a crear
     const filesToCreate = [
-      {
-        path: 'public/index.html',
-        content: '<html><head><title>My App</title></head><body></body></html>',
-      },
-      {
-        path: 'src/styles/main.css',
-        content: '@tailwind base;\n@tailwind components;\n@tailwind utilities;',
-      },
-      {
-        path: 'src/main.js',
-        content: 'import \'@styles/main.css\';\n\nconsole.log("Hello, world!");',
-      },
+      { path: 'public/index.html', content: '<html><head><title>My App</title></head><body></body></html>' },
+      { path: 'src/styles/main.css', content: '@tailwind base;\n@tailwind components;\n@tailwind utilities;' },
+      { path: 'src/index.js', content: 'import \'@styles/main.css\';\n\nconsole.log("Hello, world!");' },
+      // ...
     ];
 
-    filesToCreate.forEach((file) => {
-      fs.writeFile(file.path, file.content, (err) => {
+    // Creación de archivos
+    filesToCreate.forEach(file => {
+      const filePath = path.join(process.cwd(), file.path);
+      fs.writeFile(filePath, file.content, (err) => {
         if (err) throw err;
-        console.log(`File ${file.path} created successfully.`);
+        console.log(`File ${filePath} created successfully.`);
       });
     });
 
-    // Install dependencies
-    const packageJsonPath = path.join(__dirname, 'package.json');
-    const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf8');
-    const dependencies = Object.keys(JSON.parse(packageJsonContent).dependencies).join(' ');
+// Install dependencies
+    const dependencies = ['webpack-dev-server', '@babel/core', '@babel/plugin-transform-runtime', '@babel/preset-env', 'autoprefixer', 'babel-loader', 'copy-webpack-plugin', 'css-loader', 'css-minimizer-webpack-plugin', 'dotenv-webpack', 'html-webpack-plugin', 'mini-css-extract-plugin', 'postcss', 'postcss-loader', 'tailwindcss', 'terser-webpack-plugin', 'webpack', 'webpack-cli'];
 
-    console.log(`Installing dependencies: ${dependencies}`);
+    console.log(`Installing dependencies: ${dependencies.join(' ')}`);
 
-    const installProcess = exec(`npm install ${dependencies} --prefix ${__dirname}`);
+    const installProcess = exec(`npm install ${dependencies.join(' ')} --save-dev`);
     installProcess.stdout.on('data', (data) => console.log(data));
     installProcess.stderr.on('data', (data) => console.error(data));
 
