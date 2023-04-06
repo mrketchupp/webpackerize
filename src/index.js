@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 
-const webpackerize = () => {
+const webpackerize = async () => {
   try {
     const configFilesPath = path.join(__dirname, 'configFiles');
-    const configPath = path.join(process.cwd(), './');
+    const configPath = path.join(__dirname, '/');
 
     fs.readdirSync(configFilesPath).forEach((fileName) => {
       const filePath = path.join(configFilesPath, fileName);
@@ -16,21 +16,21 @@ const webpackerize = () => {
       console.log(`File ${fileName} copied successfully to ${configPath}`);
     });
 
-    fs.mkdirSync('public');
-    fs.mkdirSync('src');
-    fs.mkdirSync('src/assets');
-    fs.mkdirSync('src/styles');
+    const directoriesToCreate = ['public', 'src', 'src/assets', 'src/styles'];
+
+    directoriesToCreate.forEach((directory) => {
+      fs.mkdirSync(directory);
+      console.log(`Directory ${directory} created successfully.`);
+    });
 
     const filesToCreate = [
       {
         path: 'public/index.html',
-        content:
-          '<html><head><title>My App</title></head><body></body></html>',
+        content: '<html><head><title>My App</title></head><body></body></html>',
       },
       {
         path: 'src/styles/main.css',
-        content:
-          '@tailwind base;\n@tailwind components;\n@tailwind utilities;',
+        content: '@tailwind base;\n@tailwind components;\n@tailwind utilities;',
       },
       {
         path: 'src/main.js',
@@ -45,49 +45,17 @@ const webpackerize = () => {
       });
     });
 
-    const packagePath = path.join(process.cwd(), './package.json');
-    const packageContent = fs.readFileSync(packagePath, 'utf8');
-    const packageJson = JSON.parse(packageContent);
+    // Install dependencies
+    const packageJsonPath = path.join(__dirname, 'package.json');
+    const packageJsonContent = fs.readFileSync(packageJsonPath, 'utf8');
+    const dependencies = Object.keys(JSON.parse(packageJsonContent).dependencies).join(' ');
 
-    const dependencies = [
-      'webpack',
-      'webpack-cli',
-      'webpack-dev-server',
-      '@babel/core',
-      '@babel/preset-env',
-      '@babel/preset-react',
-      'babel-loader',
-      'html-webpack-plugin',
-      'css-loader',
-      'style-loader',
-      'postcss',
-      'postcss-loader',
-      'tailwindcss',
-      'autoprefixer',
-    ];
+    console.log(`Installing dependencies: ${dependencies}`);
 
-    dependencies.forEach((dependency) => {
-      console.log(`Installing ${dependency}`);
-      exec(`npm install --save-dev ${dependency}`, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`Error installing ${dependency}: ${error.message}`);
-          return;
-        }
-        if (stderr) {
-          console.error(`Error installing ${dependency}: ${stderr}`);
-          return;
-        }
-        console.log(`Dependency ${dependency} installed successfully.`);
-      });
-    });
+    const installProcess = exec(`npm install ${dependencies} --prefix ${__dirname}`);
+    installProcess.stdout.on('data', (data) => console.log(data));
+    installProcess.stderr.on('data', (data) => console.error(data));
 
-    packageJson.scripts = {
-      start: 'webpack-dev-server --open',
-      build: 'webpack --mode production',
-    };
-
-    fs.writeFileSync(packagePath, JSON.stringify(packageJson, null, 2), 'utf8');
-    console.log('Scripts added to package.json.');
   } catch (error) {
     console.error('An error occurred while executing Webpackerize:', error.message);
   }
