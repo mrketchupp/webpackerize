@@ -1,6 +1,7 @@
 {
   "name": "webpackerize",
-  "version": "1.0.0",
+  "version": "1.0.2",
+  "author": "MrKetchupp (https://twitter.com/Ketchupp_k)",
   "description": "Webpackerize prepara todo lo necesario para trabajar con Webpack en tu proyecto y  puedas concentrarte en escribir código de calidad.",
   "main": "src/index.js",
   "scripts": {

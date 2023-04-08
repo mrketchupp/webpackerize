@@ -20,8 +20,8 @@
   <a href="#alias">Alias</a> •
   <a href="#manejo-de-imágenes-y-fuentes">Manejo de imágenes y fuentes</a> •
   <a href="#dependencias">Dependencias</a> •
-  <a href="#contribuir">**Contribuir**</a> •
-  <a href="#licencia">licencia</a> •
+  <a href="#contribuir">Contribuir</a> •
+  <a href="#licencia">licencia</a>
 </p>
 
 ## Funcion
